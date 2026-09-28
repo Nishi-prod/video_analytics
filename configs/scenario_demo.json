@@ -1,0 +1,23 @@
+{
+  "_comment": "Small demo: a weekday lunch slice and a weekend peak slice (4 h total). Rates are illustrative, not C Spire data.",
+  "seed": 7,
+  "open_hour": 10,
+  "close_hour": 20,
+  "sessions": [
+    {"name": "wkday_mon", "day_type": "weekday", "start_hour": 12, "end_hour": 14},
+    {"name": "wkend_sat", "day_type": "weekend", "start_hour": 15, "end_hour": 17}
+  ],
+  "hourly_arrivals": {
+    "weekday": [12, 15, 22, 25, 18, 16, 20, 28, 30, 18],
+    "weekend": [18, 24, 32, 36, 34, 40, 38, 34, 26, 16]
+  },
+  "group_size_probs": [0.65, 0.25, 0.08, 0.02],
+  "walk_speed": [1.1, 0.15],
+  "zone_visit_prob": {"iphone_table": 0.55, "iphone_wall": 0.30, "samsung_table": 0.45, "samsung_wall": 0.25},
+  "engage_prob":     {"iphone_table": 0.55, "iphone_wall": 0.50, "samsung_table": 0.50, "samsung_wall": 0.45},
+  "dwell_s":         {"iphone_table": [45, 0.7], "iphone_wall": [30, 0.7], "samsung_table": [40, 0.7], "samsung_wall": [25, 0.7]},
+  "glance_prob": 0.12,
+  "counter_prob": 0.35,
+  "counter_dwell": [180, 0.6],
+  "staff": {"count": 2, "counter_prob": 0.5, "counter_dwell": [240, 0.6], "zone_dwell": [60, 0.7]}
+}

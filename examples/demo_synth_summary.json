@@ -1,0 +1,37 @@
+{
+ "layout": "cspire_demo_store",
+ "scenario": "configs/scenario_demo.json",
+ "sessions": {
+  "wkday_mon": {
+   "start_t": 43200,
+   "fps": 15,
+   "day_type": "weekday"
+  },
+  "wkend_sat": {
+   "start_t": 140400,
+   "fps": 15,
+   "day_type": "weekend"
+  }
+ },
+ "people": 125,
+ "staff": 4,
+ "store_entries_world": 124,
+ "store_entries_cameras": 124,
+ "zone_visits_world": 289,
+ "zone_visits_cameras": 289,
+ "mot_boxes": {
+  "cam_entrance": {
+   "wkday_mon": 13767,
+   "wkend_sat": 19975
+  },
+  "cam_iphone": {
+   "wkday_mon": 284730,
+   "wkend_sat": 359217
+  },
+  "cam_samsung": {
+   "wkday_mon": 286172,
+   "wkend_sat": 348462
+  }
+ },
+ "seconds": 39.7
+}

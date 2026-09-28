@@ -1,0 +1,176 @@
+{
+  "_comment": "Public datasets for the C Spire retail video POC. 'access' tells download.py how to fetch each one. Sizes are approximate. Licences were checked Sept 2026 - re-check before any commercial use.",
+  "datasets": [
+    {
+      "id": "mot17",
+      "name": "MOT17 (MOTChallenge)",
+      "tasks": ["detection", "tracking"],
+      "priority": "P0",
+      "access": "direct",
+      "files": [
+        {"url": "https://motchallenge.net/data/MOT17.zip", "size_gb": 5.5, "unzip": true},
+        {"url": "https://motchallenge.net/data/MOT17Labels.zip", "size_gb": 0.01, "unzip": true, "optional": true}
+      ],
+      "licence": "CC BY-NC-SA 3.0",
+      "commercial_ok": false,
+      "expect": ["MOT17/train/MOT17-02-FRCNN/gt/gt.txt", "MOT17/train/MOT17-02-FRCNN/seqinfo.ini"],
+      "notes": "7 train sequences with GT (x3 detector variants). Test GT is hidden (server only). Includes MOT17-04/-09 pedestrian scenes; use train split for local eval."
+    },
+    {
+      "id": "mot20",
+      "name": "MOT20 (MOTChallenge, crowded)",
+      "tasks": ["detection", "tracking"],
+      "priority": "P0",
+      "access": "direct",
+      "files": [
+        {"url": "https://motchallenge.net/data/MOT20.zip", "size_gb": 5.0, "unzip": true}
+      ],
+      "licence": "CC BY-NC-SA 3.0",
+      "commercial_ok": false,
+      "expect": ["MOT20/train/MOT20-01/gt/gt.txt"],
+      "notes": "4 train sequences with GT; very dense crowds - stress test for peak hours."
+    },
+    {
+      "id": "caviar",
+      "name": "CAVIAR shopping centre (Lisbon)",
+      "tasks": ["tracking", "retail"],
+      "priority": "P0",
+      "access": "caviar",
+      "base_url": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA2/",
+      "sequences": [
+        "EnterExitCrossingPaths1cor", "EnterExitCrossingPaths2cor",
+        "OneLeaveShop1cor", "OneLeaveShop2cor", "OneLeaveShopReenter1cor", "OneLeaveShopReenter2cor",
+        "OneShopOneWait1cor", "OneShopOneWait2cor",
+        "OneStopEnter1cor", "OneStopEnter2cor", "OneStopMoveEnter1cor", "OneStopMoveEnter2cor",
+        "OneStopMoveNoEnter1cor", "OneStopMoveNoEnter2cor", "OneStopNoEnter1cor", "OneStopNoEnter2cor",
+        "ShopAssistant1cor", "ShopAssistant2cor", "ThreePastShop1cor", "ThreePastShop2cor",
+        "TwoEnterShop1cor", "TwoEnterShop2cor", "TwoEnterShop3cor",
+        "TwoLeaveShop1cor", "TwoLeaveShop2cor", "WalkByShop1cor"
+      ],
+      "size_gb": 0.4,
+      "licence": "Free for research; acknowledge EC-funded CAVIAR project IST 2001 37540",
+      "commercial_ok": false,
+      "expect": ["caviar/WalkByShop1cor"],
+      "notes": "384x288 @ 25fps. XML GT has per-person role/situation (browsing, shop enter/exit, walking) - our only real-video check for stop-vs-pass and shop entry counting. 'front' views also exist; add them to 'sequences' if needed."
+    },
+    {
+      "id": "personpath22",
+      "name": "PersonPath22 (Amazon)",
+      "tasks": ["tracking"],
+      "priority": "P1",
+      "access": "repo_script",
+      "repo": "https://github.com/amazon-science/tracking-dataset.git",
+      "script": "python3 download.py",
+      "requirements": "requirements.txt",
+      "size_gb": 60,
+      "licence": "CC BY-NC 4.0 (no biometric use)",
+      "commercial_ok": false,
+      "expect": ["personpath22/tracking-dataset/dataset/annotations/anno_visible_2022.json"],
+      "notes": "Needs aws cli + ffmpeg. Annotations at 5 fps key frames. Converter to MOT format is 'to appear' upstream - use gluoncv motion format loader."
+    },
+    {
+      "id": "smartspaces",
+      "name": "NVIDIA PhysicalAI-SmartSpaces (AI City 2025 Track 1)",
+      "tasks": ["tracking", "reid", "retail"],
+      "priority": "P0",
+      "access": "huggingface",
+      "repo_id": "nvidia/PhysicalAI-SmartSpaces",
+      "repo_type": "dataset",
+      "default_include": ["MTMC_Tracking_2025/train/*/calibration.json", "MTMC_Tracking_2025/train/*/ground_truth.json", "MTMC_Tracking_2025/train/*/map.png", "MTMC_Tracking_2025/val/*/*.json", "MTMC_Tracking_2025/val/*/map.png"],
+      "video_include": ["MTMC_Tracking_2025/val/*/videos/*"],
+      "exclude": ["*depth*"],
+      "size_gb": 70,
+      "licence": "CC BY 4.0",
+      "commercial_ok": true,
+      "expect": ["smartspaces/MTMC_Tracking_2025/val"],
+      "notes": "Synthetic, 1080p30 - downscale to 640x360@15. Default pulls annotations + maps only (small); add --with-videos for MP4s. NEVER pull depth maps (~3 TB). Retail-like scenes: run 'download.py list-files smartspaces' and look for Retail/Store scene names; 2024 edition README mentions retail spaces in scenes 071-080."
+    },
+    {
+      "id": "meva",
+      "name": "MEVA (Multiview Extended Video with Activities)",
+      "tasks": ["retail"],
+      "priority": "P2",
+      "access": "s3",
+      "bucket": "s3://mevadata-public-01",
+      "default_prefix": "",
+      "size_gb": 516,
+      "licence": "CC BY 4.0",
+      "commercial_ok": true,
+      "expect": [],
+      "notes": "Huge. download.py only lists the bucket by default; pass --prefix to sync one folder. Activity annotations live in the MEVA data repo on GitLab (Kitware)."
+    },
+    {
+      "id": "merl_shopping",
+      "name": "MERL Shopping",
+      "tasks": ["retail", "vlm"],
+      "priority": "P2",
+      "access": "index",
+      "base_url": "https://www.merl.com/pub/tmarks/MERL_Shopping_Dataset/",
+      "size_gb": 3,
+      "licence": "Not stated - confirm with MERL before use",
+      "commercial_ok": false,
+      "expect": ["merl_shopping"],
+      "notes": "106 overhead clips (~2 min) with shopper action labels incl. Inspect Shelf."
+    },
+    {
+      "id": "retailaction",
+      "name": "RetailAction (Standard AI)",
+      "tasks": ["vlm"],
+      "priority": "P2",
+      "access": "huggingface",
+      "repo_id": "standard-cognition/RetailAction",
+      "repo_type": "dataset",
+      "default_include": ["README.md", "LICENSE*", "*.json"],
+      "video_include": ["*"],
+      "exclude": [],
+      "size_gb": 32,
+      "licence": "Custom (see LICENSE in repo)",
+      "commercial_ok": false,
+      "expect": ["retailaction"],
+      "notes": "Item-level interactions (out of POC scope) - only for VLM description tests. Read LICENSE before downloading videos."
+    },
+    {
+      "id": "market1501",
+      "name": "Market-1501",
+      "tasks": ["reid"],
+      "priority": "P1",
+      "access": "direct",
+      "files": [
+        {"url": "http://188.138.127.15:81/Datasets/Market-1501-v15.09.15.zip", "size_gb": 0.15, "unzip": true}
+      ],
+      "mirrors": ["https://drive.google.com/file/d/0B8-rUzbwVRk0c054eEozWG9COHM/view", "https://www.kaggle.com/datasets/rayiooo/reid_market-1501"],
+      "licence": "Research use; cite Zheng et al. ICCV 2015",
+      "commercial_ok": false,
+      "expect": ["market1501/Market-1501-v15.09.15/bounding_box_test"],
+      "notes": "The mirror server is third-party and sometimes down - use the Google Drive link from the official project page if it fails."
+    },
+    {
+      "id": "msmt17",
+      "name": "MSMT17",
+      "tasks": ["reid"],
+      "priority": "P1",
+      "access": "request",
+      "request_url": "https://www.pkuvmc.com/dataset.html",
+      "agreement": "https://www.pkuvmc.com/agreement/RELEASE_AGREEMENT-MSMT17.pdf",
+      "size_gb": 3,
+      "licence": "Research only, signed release agreement",
+      "commercial_ok": false,
+      "expect": ["msmt17/MSMT17_V1/list_query.txt"],
+      "notes": "Sign the PDF agreement (institution signature), email it, receive a link. Unzip into <root>/msmt17/."
+    },
+    {
+      "id": "mmptrack",
+      "name": "MMPTRACK (Microsoft, ICCV 2021 MMP workshop)",
+      "tasks": ["tracking", "reid", "retail"],
+      "priority": "P0",
+      "access": "request",
+      "request_url": "https://iccv2021-mmp.github.io/subpage/dataset.html",
+      "agreement": "Terms & conditions document on the dataset page; email to iccv2021mmp@outlook.com",
+      "size_gb": 50,
+      "licence": "Research only, signed agreement",
+      "commercial_ok": false,
+      "expect": ["mmptrack"],
+      "notes": "Closest match to C Spire: retail room, 640x320 @ 15 fps, overlapping cameras, per-camera boxes + world footpoints. Request access FIRST - it takes days."
+    }
+  ]
+}

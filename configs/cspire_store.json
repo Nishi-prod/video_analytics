@@ -1,0 +1,25 @@
+{
+  "name": "cspire_demo_store",
+  "_comment": "Illustrative phone-store layout in metres (x = width, y = depth from the door). Replace with C Spire's real zone map. Cameras mirror the POC: entrance + two merchandising cameras at 640x360, 15 fps.",
+  "floor": [14.0, 10.0],
+  "fps": 15,
+  "stop_seconds": 5.0,
+  "entrance": {
+    "line": [[5.5, 0.0], [8.5, 0.0]],
+    "inside_normal": [0.0, 1.0],
+    "camera": "cam_entrance",
+    "outside_spawn": [7.0, -2.5]
+  },
+  "zones": [
+    {"id": "iphone_table",  "label": "iPhone display table",   "camera": "cam_iphone",  "polygon": [[2.0, 4.0], [5.0, 4.0], [5.0, 6.8], [2.0, 6.8]]},
+    {"id": "iphone_wall",   "label": "iPhone accessory wall",  "camera": "cam_iphone",  "polygon": [[0.2, 7.2], [4.2, 7.2], [4.2, 9.2], [0.2, 9.2]]},
+    {"id": "samsung_table", "label": "Samsung display table",  "camera": "cam_samsung", "polygon": [[9.0, 4.0], [12.0, 4.0], [12.0, 6.8], [9.0, 6.8]]},
+    {"id": "samsung_wall",  "label": "Samsung accessory wall", "camera": "cam_samsung", "polygon": [[9.8, 7.2], [13.8, 7.2], [13.8, 9.2], [9.8, 9.2]]}
+  ],
+  "staff_home": [7.0, 8.8],
+  "cameras": [
+    {"id": "cam_entrance", "pos": [7.0, 4.5, 3.2], "look_at": [7.0, 0.5, 0.0], "f": 420},
+    {"id": "cam_iphone",   "pos": [0.6, 0.8, 3.2], "look_at": [2.8, 6.2, 0.0], "f": 380},
+    {"id": "cam_samsung",  "pos": [13.4, 0.8, 3.2], "look_at": [11.2, 6.2, 0.0], "f": 380}
+  ]
+}
